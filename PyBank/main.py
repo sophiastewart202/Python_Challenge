@@ -4,21 +4,21 @@ import csv
 import sys
 
 #Specify the file to read to
-csvpath=os.path.join('Resources','pybank_budget_data.csv')
+csvpath = os.path.join('Resources','pybank_budget_data.csv')
 
 #look in csv path
 with open(csvpath) as datafile:
 
     #Count the total number of months (by counting the rows)
     next(datafile) #skip the header
-    csvreader=csv.reader(datafile, delimiter=',') #open in reader mode
+    csvreader = csv.reader(datafile, delimiter=',') #open in reader mode
     data = []
     for row in csvreader: #store each row as one item in the data list  
         data.append(row)
     total_months = sum(1 for row in data) #count all the rows
 
     #find the net total amount of profits/losses over the entire period
-    net_total=0
+    net_total = 0
     for row in data:
         net_total += int(row[1])
 

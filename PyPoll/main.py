@@ -6,13 +6,32 @@ import csv
 csvpath=os.path.join('Resources','pypoll_election_data.csv')
 
 #look in csv path
-with open(csvpath) as text
-    #The total number of votes cast (total_votes = count # of voter ID)
+with open(csvpath) as datafile:
+    next(datafile) #skip headers
+    csvreader = csv.reader(datafile, delimiter=',') #open in reader mode
+    id = []
+    county = []
+    candidates = []
 
-    #A complete list of candidates who received votes (Candidates = empty list, 
-    # for every distinct value in column 3, append value to list)
+    for row in csvreader:
+
+        id.append(row[0])
+
+        if row[1] not in county:
+            county.append(row[1])
+
+        if row[2] not in candidates:
+            candidates.append(row[2])
+
+    #The total number of votes cast
+    total_votes = int(len(id))
+    print(total_votes)
+
+    #A complete list of candidates who received votes
+    print(candidates)
 
     #The percentage of votes each candidate won (percentage_votes = count of votes per candidate/total_votes)
+
 
     #The total number of votes each candidate won (votes_won = count of occurences of each distinct value 
     # in Candidate column)
@@ -23,7 +42,7 @@ with open(csvpath) as text
     # title = "Election Results"
     # (print("title") 
     # print(f'Total Votes: {total_votes}')
-    # For every Candidate in Candidates:
-    # print(f'| Candidate: {percentage_votes} %, ({votes_won})')
+    # for every Candidate in Candidates:
+    #   print(f'| Candidate: {percentage_votes} %, ({votes_won})')
 
     #export csv (as text file) to analysis folder with results
