@@ -1,6 +1,7 @@
 #Modules
 import os
 import csv
+import sys
 
 #Specify the file to read to
 csvpath=os.path.join('Resources','pybank_budget_data.csv')
@@ -49,15 +50,25 @@ with open(csvpath) as datafile:
     grtst_incr_date = str(date[monthly_change.index(greatest_increase)])
     grtst_dcrs_date = str(date[monthly_change.index(greatest_decrease)])
 
+    #create function to print analysis to the terminal
+    def financial_report():
+        print("-----------------------------------")
+        print("Financial Analysis")
+        print("-----------------------------------")
+        print(f"Total Months: {total_months}")
+        print(f"Total Revenue: $ {net_total}")
+        print(f"Average Change: $ {avg_change}")
+        print(f"Greatest Increase in Profits: {grtst_incr_date} $ {greatest_increase}")
+        print(f"Greatest Decrease in Profits: {grtst_dcrs_date} $ {greatest_decrease}")
+    
+    #print to terminal
+    financial_report()
 
-    #print analysis to the terminal
-    print("-----------------------------------")
-    print("Financial Analysis")
-    print("-----------------------------------")
-    print(f"Total Months: {total_months}")
-    print(f"Total Revenue: $ {net_total}")
-    print(f"Average Change: $ {avg_change}")
-    print(f"Greatest Increase in Profits: {grtst_incr_date} $ {greatest_increase}")
-    print(f"Greatest Decrease in Profits: {grtst_dcrs_date} $ {greatest_decrease}")
+    #Specify the file to write to
+    output_path = os.path.join("analysis", "financial_analysis.txt")
 
-    #export csv with results
+    #export text file with results
+    with open(output_path,'w') as text:
+        sys.stdout = text
+        financial_report()
+        text.close()
