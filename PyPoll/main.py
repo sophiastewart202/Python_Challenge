@@ -1,6 +1,7 @@
 #Modules
 import os
 import csv
+import sys
 
 #Specify the file to read/write to
 csvpath=os.path.join('Resources','pypoll_election_data.csv')
@@ -11,12 +12,11 @@ with open(csvpath) as datafile:
     csvreader = csv.reader(datafile, delimiter=',') #open in reader mode
     data = [] #list of data, row by row
     id = [] #list of voters by id
-    county = [] #county list
+    county = [] #list of counties
     candidates = [] #candidates list
 
     for row in csvreader:
         data.append(row)
-
         id.append(row[0])
 
         if row[1] not in county:
@@ -30,8 +30,7 @@ with open(csvpath) as datafile:
 
     #The number of votes and percentage of votes each candidate won 
     def Election_Results():
-        results = {}
-        results_list = []
+        results = {} #Create a dictionary
         votes_won = 0
         #find the vote count for each candidate
         for candidate in candidates:
@@ -49,15 +48,9 @@ with open(csvpath) as datafile:
 
         all_keys = results.keys()
         winning_vote = max(all_keys)
-        winner = str(results[winning_vote])
+        winner = str(results[winning_vote]) #look up winner by max votes
         print("--------------------------")
-        print(f'Winner: {winner}')
-          
-
-    #The winner of the election based on popular vote (winner = greatest votes_won)
-
-    #Create a dictionary
-    #look up winner by max(votes_won)
+        print(f'Winner: {winner}') 
 
     #print analysis to the terminal 
     print("Election Results")
@@ -67,4 +60,16 @@ with open(csvpath) as datafile:
     Election_Results()
     print("--------------------------")
 
-    #export csv (as text file) to analysis folder with results
+    #Specify the file to write to
+    output_path = os.path.join("analysis", "election_results.txt")
+
+    #export text file with results
+    with open(output_path,'w') as text:
+        sys.stdout = text
+        print("Election Results")
+        print("--------------------------") 
+        print(f'Total Votes: {total_votes}')
+        print("--------------------------")
+        Election_Results()
+        print("--------------------------")
+        text.close()
