@@ -8,7 +8,7 @@ csvpath=os.path.join('Resources','pypoll_election_data.csv')
 
 #look in csv path
 with open(csvpath) as datafile:
-    next(datafile) #skip headers
+    header_row = next(datafile) #store & skip headers
     csvreader = csv.reader(datafile, delimiter=',') #open in reader mode
     data = [] #list of data, row by row
     id = [] #list of voters by id
@@ -38,8 +38,8 @@ with open(csvpath) as datafile:
                 if candidate in row:
                     votes_won += 1
         
-            percentage_votes = round((votes_won/total_votes)*100,3)
-            print(f'{candidate}: {votes_won}, {percentage_votes} %')
+            percentage_votes = round((votes_won/total_votes)*100,3) #find percentage of votes each won
+            print(f'{candidate}: {votes_won}, {percentage_votes} %') #print results
 
             #add candidate results to dictionary
             results[votes_won] = candidate

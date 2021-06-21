@@ -10,7 +10,7 @@ csvpath = os.path.join('Resources','pybank_budget_data.csv')
 with open(csvpath) as datafile:
 
     #Count the total number of months (by counting the rows)
-    next(datafile) #skip the header
+    header_row = next(datafile) #store & skip headers
     csvreader = csv.reader(datafile, delimiter=',') #open in reader mode
     data = []
     for row in csvreader: #store each row as one item in the data list  
@@ -56,10 +56,10 @@ with open(csvpath) as datafile:
         print("Financial Analysis")
         print("-----------------------------------")
         print(f"Total Months: {total_months}")
-        print(f"Total Revenue: $ {net_total}")
-        print(f"Average Change: $ {avg_change}")
-        print(f"Greatest Increase in Profits: {grtst_incr_date} $ {greatest_increase}")
-        print(f"Greatest Decrease in Profits: {grtst_dcrs_date} $ {greatest_decrease}")
+        print(f"Total Revenue: ${net_total}")
+        print(f"Average Change: ${avg_change}")
+        print(f"Greatest Increase in Profits: {grtst_incr_date} ${greatest_increase}")
+        print(f"Greatest Decrease in Profits: {grtst_dcrs_date} ${greatest_decrease}")
     
     #print to terminal
     financial_report()
